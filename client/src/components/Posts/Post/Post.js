@@ -6,6 +6,7 @@ import {
   CardMedia,
   Button,
   Typography,
+  ButtonBase
 } from "@material-ui/core/";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -14,13 +15,22 @@ import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 
+
 import { likePost, deletePost } from "../../../actions/posts";
 import useStyles from "./styles";
+import { useHistory } from "react-router";
 
 const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("profile"));
+  const history = useHistory()
+
+  const openPost = (e) => {
+    // dispatch(getPost(post._id, history));
+
+    history.push(`/posts/${post._id}`);
+  };
 
   const Likes = () => {
     if (post.likes.length > 0) {
@@ -51,7 +61,13 @@ const Post = ({ post, setCurrentId }) => {
   };
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} raised elevation={3}>
+       <ButtonBase
+        component="span"
+        name="test"
+        className={classes.cardAction}
+        onClick={openPost}
+      >
       <CardMedia
         className={classes.media}
         image={
@@ -66,15 +82,7 @@ const Post = ({ post, setCurrentId }) => {
           {moment(post.createdAt).fromNow()}
         </Typography>
       </div>
-      <div className={classes.overlay2}>
-        <Button
-          style={{ color: "white" }}
-          size="small"
-          onClick={() => setCurrentId(post._id)}
-        >
-          <MoreHorizIcon fontSize="default" />
-        </Button>
-      </div>
+      
       <div className={classes.details}>
         <Typography variant="body2" color="textSecondary" component="h2">
           {post.tags.map((tag) => `#${tag} `)}
@@ -93,6 +101,16 @@ const Post = ({ post, setCurrentId }) => {
           {post.message}
         </Typography>
       </CardContent>
+      </ButtonBase>
+      
+      <Button
+          style={{ color: "black" , marginRight:"5px" }}
+          size="small"
+          onClick={() => setCurrentId(post._id)}
+        >
+          <MoreHorizIcon fontSize="default" color="black" />
+        </Button>
+      
       <CardActions className={classes.cardActions}>
         <Button
           size="small"
@@ -107,6 +125,7 @@ const Post = ({ post, setCurrentId }) => {
           <DeleteIcon fontSize="small" /> Delete
         </Button>
         )} 
+        
       </CardActions>
     </Card>
   );

@@ -15,13 +15,16 @@ app.use(bodyParser.json({ limit: '30mb', extended: true }))
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
 
+app.get('/' , (req,res) =>{
+  res.send("App is running")
+})
 app.use('/posts', postRoutes);
 app.use('/user', userRoutes)
 
-const CONNECTION_URL = 'mongodb+srv://affan12345:affan12345@memory-app.xmn39.mongodb.net/memoryApp?retryWrites=true&w=majority';
+
 const PORT = process.env.PORT;
 
-mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => app.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))
   .catch((error) => console.log(`${error} did not connect`));
 

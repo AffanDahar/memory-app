@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:5000/user';
+const url = 'https://memory-app-075.herokuapp.com/user';
 
 export const signUp = (formdata) => axios.post(`${url}/signup`, formdata)
 
