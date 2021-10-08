@@ -22,8 +22,7 @@ const Home = () => {
   const [search, setSearch] = useState('');
   const [tags, setTags] = useState([]);
   const [currentId, setCurrentId] = useState(0);
-  const dispatch = useDispatch();
-  
+const dispatch = useDispatch();     
   const history = useHistory()
 
   const searchPost = () => {

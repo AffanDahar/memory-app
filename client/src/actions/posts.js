@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, START_LOADING, END_LOADING, FETCH_POST } from '../constants/actionTypes';
+import {   FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, START_LOADING, END_LOADING, FETCH_POST, COMMENT } from '../constants/actionTypes';
 
 import * as api from '../api/post.js';
 
@@ -89,4 +89,15 @@ export const deletePost = (id) => async (dispatch) => {
   } catch (error) {
     console.log(error.message);
   }
+
 };
+
+export const commentPost = (value,id) => async (dispatch) => {
+  try{
+  const {data} = await api.comment(value,id);
+  console.log(data)
+  dispatch({type : COMMENT, payload: data})
+  }catch (error) {
+
+  }
+}
