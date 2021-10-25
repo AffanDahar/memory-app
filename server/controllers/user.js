@@ -12,7 +12,7 @@ export const signIn = async (req, res) => {
   if (!user || !(await user.matchPassword(password))) {
     res.status(400);
     res.json({ message: "invalid email or password" });
-  }
+  } 
 
   if (user) {
     res.json({
